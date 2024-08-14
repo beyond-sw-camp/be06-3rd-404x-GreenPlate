@@ -117,7 +117,8 @@ export default
   components: {
     RecipeDetailsItemComponent
   },
-  name: "RecipeDetailsPage",
+  name: "RecipeDetailPage",
+  props: ['id'],
   data() {
     return {
       recipeData: null,
@@ -126,7 +127,7 @@ export default
     };
   },
   mounted() {
-    this.getData();
+    this.getData(this.id);
   },
   methods: {
     getValidImageUrl(imageUrl) {
@@ -144,10 +145,10 @@ export default
         return false;
       }
     },
-    async getData() {
+    async getData(id) {
       try {
         // pageId를 computed 속성에서 가져와서 사용합니다
-        const response = await axios.get(`http://localhost:8080/recipe/details?recipeId=${this.recipeId}`);
+        const response = await axios.get(`http://localhost:8080/recipe/details?recipeId=${id}`);
         console.log(response.data.result);
         this.recipeData = response.data.result;
         this.itemList = response.data.result.itemList;
@@ -156,14 +157,6 @@ export default
       } finally {
         this.isLoading = false;
       }
-    }
-  },
-  computed: {
-    recipeId() {
-      const path = this.$route.fullPath;
-      const queryString = path.split('?')[1];
-      const match = queryString ? queryString.match(/(\d+)/) : null;
-      return match ? Number(match[1]) : 1;
     }
   }
 };

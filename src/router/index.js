@@ -46,7 +46,10 @@ const router = createRouter({
     { path: "/user/details", component: MyPage },
     { path: "/cart", component: CartPage },
     { path: "/recipe/list/:page", component: RecipePage },
-    { path: "/recipe/details", component: RecipeDetailsPage },
+    { path: "/recipe/details/:id", 
+      component: RecipeDetailsPage,
+      props: true
+    },
     { path: "/recipe/write", component: RecipeWritePage },
     { path: "/login", component: LoginPage },
     { path: "/mypage/order", component: MyOrderPage },
